@@ -1,6 +1,7 @@
 from Domain.Obiect import to_string, get_locatie
 from Logic.CRUD import adauga_obiect, sterge_obiect, modifica_obiect
-from Logic.Functionality import concatenare, mutare_obiect_locatie, pret_max_locatie, ordonare_crescator_pret
+from Logic.Functionality import concatenare, mutare_obiect_locatie, pret_max_locatie, ordonare_crescator_pret, \
+    suma_pret_locatie
 
 
 def print_menu():
@@ -62,16 +63,17 @@ def show_all(lista):
 
 
 def ui_mutare_obiect_locatie(lista, undo_list):
+    ID=input("Dati ID ul: ")
     locatie = input("Dati locatia: ")
     undo_list.append(lista)
-    return mutare_obiect_locatie(lista, locatie)
+    return mutare_obiect_locatie(lista, ID, locatie)
 
 
 def ui_concatenare(lista, undo_list):
     try:
-        string = float(input("Dati stringul: "))
-        loc = input("Dati locatia:")
-        rezultat = concatenare(lista, string, loc)
+        string = input("Dati stringul: ")
+        pret = float(input("Dati pretul: "))
+        rezultat = concatenare(lista, string, pret)
         undo_list.append(lista)
         return rezultat
     except ValueError as ve:
@@ -98,7 +100,7 @@ def ui_suma_pret_locatie(lista):
     for obiect in sorted(lista, key=lambda rez: get_locatie(rez)):
         nume = get_locatie(obiect)
         if nume != nume_curent:
-            print("{}: {}".format(nume, ui_suma_pret_locatie(lista, nume)))
+            print("{}: {}".format(nume, suma_pret_locatie(lista,nume)))
         nume_curent = nume
 
 
