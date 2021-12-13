@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from Domain.Obiect import to_string, get_locatie
 from Logic.CRUD import adauga_obiect, sterge_obiect, modifica_obiect
 from Logic.Functionality import concatenare, mutare_obiect_locatie, pret_max_locatie, ordonare_crescator_pret, \
@@ -69,7 +71,7 @@ def show_all(lista):
 def ui_mutare_obiect_locatie(lista, undo_list, redo_list):
     ID=input("Dati ID ul: ")
     locatie = input("Dati locatia: ")
-    undo_list.append(lista)
+    undo_list.append(deepcopy(lista))
     redo_list.clear()
     return mutare_obiect_locatie(lista, ID, locatie)
 
@@ -78,8 +80,8 @@ def ui_concatenare(lista, undo_list, redo_list):
     try:
         string = input("Dati stringul: ")
         pret = float(input("Dati pretul: "))
+        undo_list.append(deepcopy(lista))
         rezultat = concatenare(lista, string, pret)
-        undo_list.append(lista)
         redo_list.clear()
         return rezultat
     except ValueError as ve:
@@ -95,7 +97,7 @@ def ui_pret_max_locatie(lista):
 
 
 def ui_ordonare_crescator_pret(lista, undo_list, redo_list):
-    undo_list.append(lista)
+    undo_list.append(deepcopy(lista))
     redo_list.clear()
     return ordonare_crescator_pret(lista)
 def ui_suma_pret_locatie(lista):

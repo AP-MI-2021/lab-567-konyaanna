@@ -54,15 +54,15 @@ def ui_modifica_obiect_2(ID, nume, descriere, pret_achizitie, locatie, lista, un
 
 
 def ui_mutare_obiect_locatie_2(ID, locatie, lista, undo_list, redo_list):
-    undo_list.append(lista)
+    undo_list.append(deepcopy(lista))
     redo_list.clear()
     return mutare_obiect_locatie(lista, ID, locatie)
 
 
 def ui_concatenare_2(string,pret,lista, undo_list, redo_list):
     try:
+        undo_list.append(deepcopy(lista))
         rezultat = concatenare(lista, string, pret)
-        undo_list.append(lista)
         redo_list.clear()
         return rezultat
     except ValueError as ve:
@@ -70,7 +70,7 @@ def ui_concatenare_2(string,pret,lista, undo_list, redo_list):
 
 
 def ui_ordonare_crescator_pret_2(lista, undo_list, redo_list):
-    undo_list.append(lista)
+    undo_list.append(deepcopy(lista))
     redo_list.clear()
     return ordonare_crescator_pret(lista)
 
